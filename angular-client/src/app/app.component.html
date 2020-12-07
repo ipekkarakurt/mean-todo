@@ -1,0 +1,20 @@
+<nav class="navbar navbar-light bg-faded">
+  <div class="container">
+    <a class="navbar-brand" href="#">Todo App</a>
+  </div>
+</nav>
+
+<div class="container">
+    <form>
+      <div class="form-group" style="display: flex; justify-content: space-between">
+        <input type="text" class="form-control" id="todo" #todo>
+        <button type="button" (click)="addTodo(todo.value)" class="btn btn-primary">Add new</button>
+      </div>
+    </form>
+
+    <h3>My Todo List</h3>
+    <div class="card card-block" *ngFor="let todo of todos" style="display: flex; justify-content: space-between">
+      <h4 class="card-title">{{todo.text}}</h4>
+      <button type="button" (click)="deleteTodo(todo)" class="btn btn-danger">Delete</button>
+    </div>
+</div>
