@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  angular:
+    build: angular-client # specify the directory of the Dockerfile
+    ports:
+      - "4200:4200"
+    volumes:
+      - ./angular-client:/app # this will enable changes made to the angular app reflect in the container
+
+  express:
+    build: express-server # specify the directory of the Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - database
+
+  database:
+    image: mongo # specify image to build container from
+    ports:
+      - "27017:27017"
