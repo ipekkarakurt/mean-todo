@@ -1,19 +1,18 @@
-version: '2'
+version: '3'
 
-# Define the services/containers to be run
 services:
   angular:
-    build: angular-client # specify the directory of the Dockerfile
+    build: angular-client
     ports:
       - "4200:4200"
 
   express:
-    build: express-server # specify the directory of the Dockerfile
+    build: express-server
     ports:
       - "3000:3000"
 
   database:
-    image: mongo # specify image to build container from
+    image: mongo
     ports:
       - "27017:27017"
     volumes:
