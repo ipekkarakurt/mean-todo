@@ -5,14 +5,15 @@ FROM node:10
 WORKDIR /usr/src/app
 
 # Copy dependency definitions
-COPY package*.json .
+COPY package*.json ./
 
 # Install dependecies
 RUN npm install
+RUN apt-get -q update && apt-get -qy install netcat
 
 # Get all the code needed to run the app
 COPY . .
-RUN chmod +x /usr/src/app/wait-for.sh
+RUN chmod +x ./wait-for-it.sh
 
 # Expose the port the app runs in
 EXPOSE 3000
