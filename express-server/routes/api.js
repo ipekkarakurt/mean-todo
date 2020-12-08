@@ -1,10 +1,15 @@
-// Import dependencies
 const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 
-// MongoDB URL from the docker-compose file
-const dbHost = 'mongodb://root:example@database:27017';
+const {
+    MONGO_USERNAME,
+    MONGO_PASSWORD,
+    MONGO_HOSTNAME,
+    MONGO_PORT
+} = process.env;
+
+const dbHost = 'mongodb://'+ MONGO_USERNAME+':'+MONGO_PASSWORD+'@'+MONGO_HOSTNAME+':'+MONGO_PORT;
 
 // Connect to mongodb
 mongoose.connect(dbHost);
@@ -18,9 +23,8 @@ const todoSchema = new mongoose.Schema({
 const Todo = mongoose.model('Todo', todoSchema);
 
 
-/_ GET api listing. _/
 router.get('/', (req, res) => {
-        res.send('api works!!!!!');
+        res.send('api works!');
 });
 
 router.get('/todos', (req, res) => {

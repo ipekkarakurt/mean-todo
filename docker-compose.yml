@@ -9,19 +9,24 @@ services:
   express:
     build: express-server
     command: ["./wait-for-it.sh", "database:27017", "--", "node", "server.js"]
+    environment:
+      - MONGO_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - MONGO_HOSTNAME=database
+      - MONGO_PORT=${MONGO_PORT}
     ports:
       - "3000:3000"
 
   database:
     image: mongo
     ports:
-      - "27017:27017"
+      - ${MONGO_PORT}:${MONGO_PORT}
     volumes:
      - mongodb:/data/db
      - mongodb_config:/data/configdb
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=example
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
 volumes:
   mongodb:
   mongodb_config:
